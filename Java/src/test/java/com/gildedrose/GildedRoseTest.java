@@ -95,7 +95,51 @@ class GildedRoseTest {
         assertEquals(0, app.items[0].sellIn);
     }
 
-    //  @Test
-    //TODO void BackstagePassesLoseQualityAfterSellBy()
+    @Test
+    void BackstagePassesLoseQualityAfterSellBy() {
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 0, 9) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
+    }
 
+    @Test
+    void BackstagePassesDontLoseQualityUntilAfterSellBy() {
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 1, 9) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(12, app.items[0].quality);
+    }
+
+    @Test
+    void BackstagePassesGainThreeQualityFiveDaysBeforeSellBy() {
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 5, 9) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(12, app.items[0].quality);
+    }
+
+    @Test
+    void BackstagePassesGainTwoQualitySixDaysBeforeSellBy() {
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 6, 9) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(11, app.items[0].quality);
+    }
+
+    @Test
+    void BackstagePassesGainTwoQualityTenDaysBeforeSellBy() {
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 10, 9) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(11, app.items[0].quality);
+    }
+
+    @Test
+    void BackstagePassesGainOneQualityMoreThanTenDaysBeforeSellBy() {
+        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 11, 9) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(10, app.items[0].quality);
+    }
 }
